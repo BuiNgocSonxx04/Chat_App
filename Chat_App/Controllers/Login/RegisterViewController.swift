@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 class RegisterViewController: UIViewController {
     
     private let scrollView:UIScrollView = {
@@ -18,7 +18,7 @@ class RegisterViewController: UIViewController {
     
     private let imageView:UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(systemName: "person.circle")
         imageView.tintColor = .gray
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
@@ -143,13 +143,13 @@ class RegisterViewController: UIViewController {
         imageView.layer.cornerRadius = imageView.width/2.0
         
         firstNameField.frame = CGRect(x:30,
-                                  y:imageView.bottom+10,
-                                  width:scrollView.width-60,
-                                  height: 50)
+                                      y:imageView.bottom+10,
+                                      width:scrollView.width-60,
+                                      height: 50)
         lastNameField.frame = CGRect(x:30,
-                                  y:firstNameField.bottom+10,
-                                  width:scrollView.width-60,
-                                  height: 50)
+                                     y:firstNameField.bottom+10,
+                                     width:scrollView.width-60,
+                                     height: 50)
         emailField.frame = CGRect(x:30,
                                   y:lastNameField.bottom+10,
                                   width:scrollView.width-60,
@@ -159,9 +159,9 @@ class RegisterViewController: UIViewController {
                                      width:scrollView.width-60,
                                      height: 50)
         registerButton.frame = CGRect(x:30,
-                                   y:passwordField.bottom+10,
-                                   width:scrollView.width-60,
-                                   height: 50)
+                                      y:passwordField.bottom+10,
+                                      width:scrollView.width-60,
+                                      height: 50)
     }
     
     @objc private func registerButtonTapped(){
@@ -180,11 +180,38 @@ class RegisterViewController: UIViewController {
                 alertUserLoginError()
                 return
         }
-        //firebase login
+        
+        
+        //firebase Log in
+        
+        DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
+            guard let strongSelf = self else {
+                return
+            }
+            guard !exists else {
+                //user already exists
+                strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists.")
+                return
+            }
+            
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
+                guard authResult != nil, error == nil else {
+                    print("Error creating user")
+                    return
+                }
+                DatabaseManager.shared.insertUser(with: ChapAppUser(firstName: firstName,
+                                                                    lastName: lastName,
+                                                                    emailAddress: email))
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            })
+        })
+        
     }
     
-    func alertUserLoginError(){
-        let alert = UIAlertController(title: "Woops", message: "Please enter all information to create a new account.", preferredStyle: .alert)
+    func alertUserLoginError(message: String = "Please enter all information to create a new account."){
+        let alert = UIAlertController(title: "Woops",
+                                      message: message,
+                                      preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.cancel, handler: nil))
         present(alert,animated: true)
         
@@ -219,14 +246,14 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         actionSheet.addAction(UIAlertAction(title: "Take Photo",
                                             style: .default,
                                             handler: { [weak self] _ in
-            
+                                                
                                                 self?.presentCamera()
                                                 
         }))
         actionSheet.addAction(UIAlertAction(title: "Chose Photo",
                                             style: .default,
                                             handler: { [weak self] _ in
-            
+                                                
                                                 self?.presentPhotoPicker()
         }))
         
