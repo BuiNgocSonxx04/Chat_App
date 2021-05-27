@@ -4,8 +4,14 @@
 target 'Chat_App' do
   use_frameworks!
 
+# Firebase
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 
+# FaceBook
+pod 'FBSDKLoginKit'
+
+# Google Sign In
+pod 'GoogleSignIn'
 end

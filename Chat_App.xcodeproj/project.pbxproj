@@ -29,6 +29,7 @@
 		2DCA3CEAEC3C9E6DE3F8DE91 /* Pods-Chat_App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_App.release.xcconfig"; path = "Target Support Files/Pods-Chat_App/Pods-Chat_App.release.xcconfig"; sourceTree = "<group>"; };
 		A7FC664A2C0450A82DC76F3B /* Pods-Chat_App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chat_App.debug.xcconfig"; path = "Target Support Files/Pods-Chat_App/Pods-Chat_App.debug.xcconfig"; sourceTree = "<group>"; };
 		B3F4F86F7A79907DF3E2BE4A /* Pods_Chat_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chat_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6356FC1265DFCF0002F43CB /* Chat_AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chat_AppRelease.entitlements; sourceTree = "<group>"; };
 		E6406CE4265CE95800AC810D /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		E685794C264C120C00896F71 /* Chat_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E685794F264C120C00896F71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +108,7 @@
 		E685794E264C120C00896F71 /* Chat_App */ = {
 			isa = PBXGroup;
 			children = (
+				E6356FC1265DFCF0002F43CB /* Chat_AppRelease.entitlements */,
 				E6A0A3B6265C932900741496 /* GoogleService-Info.plist */,
 				E6857967264C127F00896F71 /* Resources */,
 				E6857966264C127000896F71 /* ViewModels */,
@@ -186,6 +188,7 @@
 				E6857949264C120C00896F71 /* Frameworks */,
 				E685794A264C120C00896F71 /* Resources */,
 				C329064F4A96214A02C51EC0 /* [CP] Embed Pods Frameworks */,
+				7A9C3E0CE8562F9CE1994EDA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -244,6 +247,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7A9C3E0CE8562F9CE1994EDA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Chat_App/Pods-Chat_App-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Chat_App/Pods-Chat_App-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Chat_App/Pods-Chat_App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		97AEBB5A52326C4B9CE79B7D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -463,6 +483,7 @@
 			baseConfigurationReference = 2DCA3CEAEC3C9E6DE3F8DE91 /* Pods-Chat_App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Chat_App/Chat_AppRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Chat_App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

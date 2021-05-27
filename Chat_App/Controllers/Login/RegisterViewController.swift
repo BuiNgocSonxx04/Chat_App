@@ -199,7 +199,7 @@ class RegisterViewController: UIViewController {
                     print("Error creating user")
                     return
                 }
-                DatabaseManager.shared.insertUser(with: ChapAppUser(firstName: firstName,
+                DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
                                                                     lastName: lastName,
                                                                     emailAddress: email))
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
